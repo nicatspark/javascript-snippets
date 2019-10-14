@@ -235,3 +235,134 @@ const isArrayLike = obj =>
 isArrayLike(document.querySelectorAll('.className')); // true
 isArrayLike('abc'); // true
 isArrayLike(null); // false
+
+/**
+ * 83. maxN
+ * This snippet returns the n largest elements from a list. If n is greater than or equal to the list’s length, then it will return the original list (sorted in descending order).
+ */
+const maxN = (arr, n = 1) => [...arr].sort((a, b) => b - a).slice(0, n);
+
+maxN([1, 2, 3]); // [3]
+maxN([1, 2, 3], 2); // [3,2]
+
+/**
+ * 86. negate
+ * This snippet can be used to apply the not operator (!) to a predicate function with its arguments.
+ */
+const negate = func => (...args) => !func(...args);
+
+[1, 2, 3, 4, 5, 6].filter(negate(n => n % 2 === 0)); // [ 1, 3, 5 ]
+
+/**
+ * 91. randomIntArrayInRange
+ * This snippet can be used to generate an array with n random integers in a specified range.
+ */
+const randomIntArrayInRange = (min, max, n = 1) =>
+  Array.from(
+    { length: n },
+    () => Math.floor(Math.random() * (max - min + 1)) + min
+  );
+
+randomIntArrayInRange(12, 35, 10); // [ 34, 14, 27, 17, 30, 27, 20, 26, 21, 14 ]
+
+/**
+ * 99. sample
+ * This snippet can be used to get a random number from an array.
+ */
+const sample = arr => arr[Math.floor(Math.random() * arr.length)];
+
+sample([3, 7, 9, 11]); // 9
+
+/**
+ * 100. sampleSize
+ * This snippet can be used to get n random elements from unique positions from an array up to the size of the array. Elements in the array are shuffled using the Fisher-Yates algorithm.
+ */
+const sampleSize = ([...arr], n = 1) => {
+  let m = arr.length;
+  while (m) {
+    const i = Math.floor(Math.random() * m--);
+    [arr[m], arr[i]] = [arr[i], arr[m]];
+  }
+  return arr.slice(0, n);
+};
+
+sampleSize([1, 2, 3], 2); // [3,1]
+sampleSize([1, 2, 3], 4); // [2,3,1]
+
+/**
+ * 106. shuffle
+ * This snippet can be used to order the elements of an array randomly using the Fisher-Yates algorithm.
+ */
+const shuffle = ([...arr]) => {
+  let m = arr.length;
+  while (m) {
+    const i = Math.floor(Math.random() * m--);
+    [arr[m], arr[i]] = [arr[i], arr[m]];
+  }
+  return arr;
+};
+
+const foo = [1, 2, 3];
+shuffle(foo); // [2, 3, 1], foo = [1, 2, 3]
+
+/**
+ * 107. similarity
+ * This snippet can be used to return an array of elements that appear in two arrays.
+ */
+const similarity = (arr, values) => arr.filter(v => values.includes(v));
+
+similarity([1, 2, 3], [1, 2, 4]); // [1, 2]
+
+/**
+ * 113. sum
+ * This snippet can be used to find the sum of two or more numbers or arrays.
+ */
+const sum = (...arr) => [...arr].reduce((acc, val) => acc + val, 0);
+
+sum(1, 2, 3, 4); // 10
+sum(...[1, 2, 3, 4]); // 10
+
+/**
+ * 114. tail
+ * This snippet can be used to get an array with all the elements of an array except for the first one. If the array has only one element, then that an array with that element will be returned instead.
+ */
+const tail = arr => (arr.length > 1 ? arr.slice(1) : arr);
+
+tail([1, 2, 3]); // [2,3]
+tail([1]); // [1]
+
+/**
+ * 115. take
+ * This snippet can be used to get an array with n elements removed from the beginning.
+ */
+const take = (arr, n = 1) => arr.slice(0, n);
+
+take([1, 2, 3], 5); // [1, 2, 3]
+take([1, 2, 3], 0); // []
+
+/**
+ * 116. takeRight
+ * This snippet can be used to get an array with n elements removed from the end.
+ */
+
+const takeRight = (arr, n = 1) => arr.slice(arr.length - n, arr.length);
+
+takeRight([1, 2, 3], 2); // [ 2, 3 ]
+takeRight([1, 2, 3]); // [3]
+
+/**
+ * 124. union
+ * This snippet can be used to find the union of two arrays, resulting in an array that has elements that come from both arrays but that do not repeat.
+ */
+const union = (a, b) => Array.from(new Set([...a, ...b]));
+
+union([1, 2, 3], [4, 3, 2]); // [1,2,3,4]
+
+/**
+ * 125. uniqueElements
+ * This snippet uses ES6 Set and the …rest operator to get every element only once.
+ */
+
+const uniqueElements = arr => [...new Set(arr)];
+
+uniqueElements([1, 2, 2, 3, 4, 4, 5]); // [1, 2, 3, 4, 5]
