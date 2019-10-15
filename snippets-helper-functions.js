@@ -220,3 +220,55 @@ const validateNumber = n =>
   !isNaN(parseFloat(n)) && isFinite(n) && Number(n) == n;
 
 validateNumber('10'); // true
+
+/**
+ * The Publisher/Subscriber Pattern in JavaScript
+ * From https://medium.com/better-programming/the-publisher-subscriber-pattern-in-javascript-2b31b7ea075a
+ */
+
+function pubSub() {
+  const subscribers = {};
+
+  function publish(eventName, data) {
+    if (!Array.isArray(subscribers[eventName])) {
+      return;
+    }
+    subscribers[eventName].forEach(callback => {
+      callback(data);
+    });
+  }
+
+  function subscribe(eventName, callback) {
+    if (!Array.isArray(subscribers[eventName])) {
+      subscribers[eventName] = [];
+    }
+
+    subscribers[eventName].push(callback);
+
+    const index = subscribers[eventName].length - 1;
+
+    return {
+      unsubscribe() {
+        subscribers[eventName].splice(index, 1);
+      }
+    };
+  }
+
+  return {
+    publish,
+    subscribe
+  };
+}
+// ===========
+function showMeTheMoney(money) {
+  console.log(money);
+}
+pubSub().subscribe('show-money', showMeTheMoney);
+// Later...
+pubSub().publish('show-money', 1000000);
+//============
+const unsubscribeFood = subscribe('food', function(data) {
+  console.log(`Received some food: ${data}`);
+});
+// Removes the subscribed callback
+unsubscribeFood();

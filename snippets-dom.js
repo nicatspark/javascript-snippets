@@ -133,3 +133,26 @@ const smoothScroll = element =>
 
 smoothScroll('#fooBar'); // scrolls smoothly to the element with the id fooBar
 smoothScroll('.fooBar'); // scrolls smoothly to the first element with a class of fooBar
+
+/**
+ * Start a css transition with js fairly synchronosly.
+ */
+function setTransitionStylesOnElement(element, startStyles, endStyles) {
+  return new Promise(resolve => {
+    Object.assign(element.style, startStyles);
+    setTimeout(() => Object.assign(element.style, endStyles), 100);
+    element.addEventListener('transitionend', postAnimation);
+    function postAnimation() {
+      element.removeEventListener('transitionend', postAnimation);
+      marketsOverlay.removeAttribute('style');
+      resolve(element);
+    }
+  });
+}
+// Useage.
+const hiddenStyles = { opacity: 0, transition: 'all 0.5s' };
+const visibleStyles = { opacity: 1, transition: 'all 0.5s' };
+
+setStylesOnElement(overlayElement, visibleStyles, hiddenStyles).then(el =>
+  el.setAttribute('hidden')
+);
