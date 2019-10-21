@@ -272,3 +272,43 @@ const unsubscribeFood = subscribe('food', function(data) {
 });
 // Removes the subscribed callback
 unsubscribeFood();
+
+/**
+ * Cancellable fetch
+ * https://developers.google.com/web/updates/2017/09/abortable-fetch
+ * https://developer.mozilla.org/en-US/docs/Web/API/AbortController
+ */
+
+export function cancelableFetch(reqInfo, reqInit) {
+  var abortController = new AbortController();
+  var signal = abortController.signal;
+  var cancel = abortController.abort.bind(abortController);
+
+  var wrapResult = function (result) {
+    if (result instanceof Promise) {
+      var promise = result;
+      promise.then = function (onfulfilled, onrejected) {
+        var nativeThenResult = Object.getPrototypeOf(this).then.call(this, onfulfilled, onrejected);
+        return wrapResult(nativeThenResult);
+      }
+      promise.cancel = cancel;
+    }
+    return result;
+  }
+
+  var req = window.fetch(reqInfo, Object.assign({signal: signal}, reqInit));
+  return wrapResult(req);
+}
+// ===========
+var req = cancelableFetch("/api/config")
+  .then(res => res.json())
+  .catch(err => {
+    if (err.code === DOMException.ABORT_ERR) {
+      console.log('Request canceled.')
+    }
+    else {
+      // handle error
+    }
+  });
+
+setTimeout(() => req.cancel(), 2000);
