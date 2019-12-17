@@ -377,3 +377,15 @@ union([1, 2, 3], [4, 3, 2]); // [1,2,3,4]
 const uniqueElements = arr => [...new Set(arr)];
 
 uniqueElements([1, 2, 2, 3, 4, 4, 5]); // [1, 2, 3, 4, 5]
+
+/**
+ * Get last element in an array.
+ */
+const arr = [1, 2, 2, 3, 4, 4, 5];
+console.log(arr.splice(-1)); // 5
+
+/**
+ * Shuffling an array.
+ */
+const list = [1, 2, 3];
+console.log(list.sort(() => Math.random() - 0.5)); // [2,1,3]
