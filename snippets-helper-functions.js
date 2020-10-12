@@ -9,7 +9,7 @@ const attempt = (fn, ...args) => {
     return e instanceof Error ? e : new Error(e);
   }
 };
-var elements = attempt(function(selector) {
+var elements = attempt(function (selector) {
   return document.querySelectorAll(selector);
 }, '>_>');
 if (elements instanceof Error) elements = []; // elements = []
@@ -35,7 +35,7 @@ defer(console.log, 'a'), console.log('b'); // logs 'b' then 'a'
  * 42. functionName
  * This snippet prints the name of a function into the console.
  */
-const functionName = fn => (console.debug(fn.name), fn);
+const functionName = (fn) => (console.debug(fn.name), fn);
 
 functionName(Math.max); // max (logged in debug channel of console)
 
@@ -43,7 +43,7 @@ functionName(Math.max); // max (logged in debug channel of console)
  * 46. getType
  * This snippet can be used to get the type of a value.
  */
-const getType = v =>
+const getType = (v) =>
   v === undefined
     ? 'undefined'
     : v === null
@@ -89,15 +89,15 @@ isNumber(1); // true
  * This snippet checks whether an object looks like a Promise.
  */
 
-const isPromiseLike = obj =>
+const isPromiseLike = (obj) =>
   obj !== null &&
   (typeof obj === 'object' || typeof obj === 'function') &&
   typeof obj.then === 'function';
 
 isPromiseLike({
-  then: function() {
+  then: function () {
     return '';
-  }
+  },
 }); // true
 isPromiseLike(null); // false
 isPromiseLike({}); // false
@@ -106,7 +106,7 @@ isPromiseLike({}); // false
  * 79. isValidJSON
  * This snippet can be used to check whether a string is a valid JSON.
  */
-const isValidJSON = str => {
+const isValidJSON = (str) => {
   try {
     JSON.parse(str);
     return true;
@@ -143,9 +143,9 @@ randomHexColorCode(); // "#e34155"
  * 98. runPromisesInSeries
  * This snippet can be used to run an array of promises in series.
  */
-const runPromisesInSeries = ps =>
+const runPromisesInSeries = (ps) =>
   ps.reduce((p, next) => p.then(next), Promise.resolve());
-const delay = d => new Promise(r => setTimeout(r, d));
+const delay = (d) => new Promise((r) => setTimeout(r, d));
 
 runPromisesInSeries([() => delay(1000), () => delay(2000)]);
 // Executes each promise sequentially, taking a total of 3 seconds to complete
@@ -154,7 +154,7 @@ runPromisesInSeries([() => delay(1000), () => delay(2000)]);
  * 108. sleep
  * This snippet can be used to delay the execution of an asynchronous function by putting it into sleep.
  */
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function sleepyWork() {
   console.log("I'm going to sleep for 1 second.");
@@ -166,7 +166,7 @@ async function sleepyWork() {
  * 117. timeTaken
  * This snippet can be used to find out the time it takes to execute a function.
  */
-const timeTaken = callback => {
+const timeTaken = (callback) => {
   console.time('timeTaken');
   const r = callback();
   console.timeEnd('timeTaken');
@@ -185,7 +185,7 @@ const times = (n, fn, context = undefined) => {
 };
 
 var output = '';
-times(5, i => (output += i));
+times(5, (i) => (output += i));
 console.log(output); // 01234
 
 /**
@@ -195,7 +195,7 @@ console.log(output); // 01234
 const toCurrency = (n, curr, LanguageFormat = undefined) =>
   Intl.NumberFormat(LanguageFormat, {
     style: 'currency',
-    currency: curr
+    currency: curr,
   }).format(n);
 
 toCurrency(123456.789, 'EUR'); // €123,456.79  | currency: Euro | currencyLangFormat: Local
@@ -208,7 +208,7 @@ toCurrency(322342436423.2435, 'JPY', 'fi'); // 322 342 436 423 ¥ | currency: Ja
  * 120. toDecimalMark
  * This snippet uses the toLocaleString() function to convert float-point arithmetic to the decimal mark form by using a number to make a comma-separated string.
  */
-const toDecimalMark = num => num.toLocaleString('en-US');
+const toDecimalMark = (num) => num.toLocaleString('en-US');
 
 toDecimalMark(12305030388.9087); // "12,305,030,388.909"
 
@@ -216,7 +216,7 @@ toDecimalMark(12305030388.9087); // "12,305,030,388.909"
  * 126. validateNumber
  * This snippet can be used to check whether a value is a number.
  */
-const validateNumber = n =>
+const validateNumber = (n) =>
   !isNaN(parseFloat(n)) && isFinite(n) && Number(n) == n;
 
 validateNumber('10'); // true
@@ -233,7 +233,7 @@ function pubSub() {
     if (!Array.isArray(subscribers[eventName])) {
       return;
     }
-    subscribers[eventName].forEach(callback => {
+    subscribers[eventName].forEach((callback) => {
       callback(data);
     });
   }
@@ -250,13 +250,13 @@ function pubSub() {
     return {
       unsubscribe() {
         subscribers[eventName].splice(index, 1);
-      }
+      },
     };
   }
 
   return {
     publish,
-    subscribe
+    subscribe,
   };
 }
 // ===========
@@ -267,7 +267,7 @@ pubSub().subscribe('show-money', showMeTheMoney);
 // Later...
 pubSub().publish('show-money', 1000000);
 //============
-const unsubscribeFood = subscribe('food', function(data) {
+const unsubscribeFood = subscribe('food', function (data) {
   console.log(`Received some food: ${data}`);
 });
 // Removes the subscribed callback
@@ -288,27 +288,44 @@ export function cancelableFetch(reqInfo, reqInit) {
     if (result instanceof Promise) {
       var promise = result;
       promise.then = function (onfulfilled, onrejected) {
-        var nativeThenResult = Object.getPrototypeOf(this).then.call(this, onfulfilled, onrejected);
+        var nativeThenResult = Object.getPrototypeOf(this).then.call(
+          this,
+          onfulfilled,
+          onrejected
+        );
         return wrapResult(nativeThenResult);
-      }
+      };
       promise.cancel = cancel;
     }
     return result;
-  }
+  };
 
-  var req = window.fetch(reqInfo, Object.assign({signal: signal}, reqInit));
+  var req = window.fetch(reqInfo, Object.assign({ signal: signal }, reqInit));
   return wrapResult(req);
 }
 // ===========
-var req = cancelableFetch("/api/config")
-  .then(res => res.json())
-  .catch(err => {
+var req = cancelableFetch('/api/config')
+  .then((res) => res.json())
+  .catch((err) => {
     if (err.code === DOMException.ABORT_ERR) {
-      console.log('Request canceled.')
-    }
-    else {
+      console.log('Request canceled.');
+    } else {
       // handle error
     }
   });
 
 setTimeout(() => req.cancel(), 2000);
+
+/**
+ * Run a (anonymous) function recursivly a countdown number of
+ * times until condition are met or countdown is done.
+ */
+
+({
+  do({ countdown } = { countdown: 5 }) {
+    console.log('Counting down: ' + countdown);
+    countdown--;
+    // Do (asynk) work.
+    if (countdown !== 0) setTimeout(() => this.do({ countdown }), 1000);
+  },
+}.do());
