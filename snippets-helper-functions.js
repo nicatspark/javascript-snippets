@@ -103,6 +103,16 @@ isPromiseLike(null); // false
 isPromiseLike({}); // false
 
 /**
+ * isPromise / isFunction (similar to the above but less code)
+ * Checks if function is a promise. Note that it will execute them aswell.
+ */
+const isPromise = item => Object.prototype.toString.call(item) == "[object Promise]";
+const isFunction = item => Object.prototype.toString.call(item) == "[object Function]";
+
+isPromise(new Promise(() => {})); // true
+isFunction(() => {}); // true
+
+/**
  * 79. isValidJSON
  * This snippet can be used to check whether a string is a valid JSON.
  */
@@ -224,6 +234,12 @@ validateNumber('10'); // true
 /**
  * The Publisher/Subscriber Pattern in JavaScript
  * From https://medium.com/better-programming/the-publisher-subscriber-pattern-in-javascript-2b31b7ea075a
+ * The publisher/subscriber pattern is a design pattern that allows us
+ * to create powerful dynamic applications with modules that can communicate
+ * with each other without being directly dependent on each other.
+ * Advatage: Nifty
+ * Disadvantage: Does not scale well. Can't assert if you already subscribed to the same callback before.
+ * Best for: Usecases with a limited scope.
  */
 
 function pubSub() {
@@ -250,6 +266,11 @@ function pubSub() {
     return {
       unsubscribe() {
         subscribers[eventName].splice(index, 1);
+        /* Alt. without using index */
+        // subscribers[eventName] = subscribers[eventName].filter((cb) => {
+        //   /* Does not include the callback in the new array */
+        //   return (cb === callback)? false: true;
+        // })
       },
     };
   }
@@ -280,11 +301,11 @@ unsubscribeFood();
  */
 
 export function cancelableFetch(reqInfo, reqInit) {
-  var abortController = new AbortController();
-  var signal = abortController.signal;
-  var cancel = abortController.abort.bind(abortController);
+  const abortController = new AbortController();
+  const signal = abortController.signal;
+  const cancel = abortController.abort.bind(abortController);
 
-  var wrapResult = function (result) {
+  const wrapResult = function (result) {
     if (result instanceof Promise) {
       var promise = result;
       promise.then = function (onfulfilled, onrejected) {
@@ -300,11 +321,11 @@ export function cancelableFetch(reqInfo, reqInit) {
     return result;
   };
 
-  var req = window.fetch(reqInfo, Object.assign({ signal: signal }, reqInit));
+  const req = window.fetch(reqInfo, Object.assign({ signal: signal }, reqInit));
   return wrapResult(req);
 }
 // ===========
-var req = cancelableFetch('/api/config')
+const req = cancelableFetch('/api/config')
   .then((res) => res.json())
   .catch((err) => {
     if (err.code === DOMException.ABORT_ERR) {
