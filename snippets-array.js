@@ -1,11 +1,11 @@
 /**
  * Loop around a collection.
  */
-[...document.querySelectorAll('div')].map(arrItem => {
+[...document.querySelectorAll('div')].map((arrItem) => {
   console.log(item);
 });
 // ...or...
-[].forEach.call(document.querySelectorAll('div'), item => {
+[].forEach.call(document.querySelectorAll('div'), (item) => {
   console.log(item);
 });
 
@@ -15,7 +15,7 @@ This snippet returns true if the predicate function returns true for all element
 */
 const all = (arr, fn = Boolean) => arr.every(fn);
 
-all([4, 2, 3], x => x > 1); // true
+all([4, 2, 3], (x) => x > 1); // true
 all([1, 2, 3]); // true
 
 /*
@@ -33,7 +33,7 @@ approximatelyEqual(Math.PI / 2.0, 1.5708); // true
  * castArray('foo'); // ['foo']
  * castArray([1]); // [1]
  */
-const castArray = val => (Array.isArray(val) ? val : [val]);
+const castArray = (val) => (Array.isArray(val) ? val : [val]);
 
 castArray('foo'); // ['foo']
 castArray([1]); // [1]
@@ -42,7 +42,7 @@ castArray([1]); // [1]
  * 16. compact
  * This snippet removes false values from an array.} arr
  */
-const compact = arr => arr.filter(Boolean);
+const compact = (arr) => arr.filter(Boolean);
 
 compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34]);
 // [ 1, 2, 3, 'a', 's', 34 ]
@@ -59,8 +59,8 @@ countOccurrences([1, 1, 2, 1, 2, 3], 1); // 3
  * 22. deepFlatten
  * This snippet flattens an array recursively.
  */
-const deepFlatten = arr =>
-  [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
+const deepFlatten = (arr) =>
+  [].concat(...arr.map((v) => (Array.isArray(v) ? deepFlatten(v) : v)));
 
 deepFlatten([1, [2], [[3], 4], 5]); // [1,2,3,4,5]
 
@@ -70,7 +70,7 @@ deepFlatten([1, [2], [[3], 4], 5]); // [1,2,3,4,5]
  */
 const difference = (a, b) => {
   const s = new Set(b);
-  return a.filter(x => !s.has(x));
+  return a.filter((x) => !s.has(x));
 };
 
 difference([1, 2, 3], [1, 2, 4]); // [3]
@@ -80,7 +80,7 @@ difference([1, 2, 3], [1, 2, 4]); // [3]
  * This snippet removes the values for which the comparator function returns false.
  */
 const differenceWith = (arr, val, comp) =>
-  arr.filter(a => val.findIndex(b => comp(a, b)) === -1);
+  arr.filter((a) => val.findIndex((b) => comp(a, b)) === -1);
 
 differenceWith(
   [1, 1.2, 1.5, 3, 0],
@@ -118,7 +118,7 @@ const dropRightWhile = (arr, func) => {
   return arr;
 };
 
-dropRightWhile([1, 2, 3, 4], n => n < 3); // [1, 2]
+dropRightWhile([1, 2, 3, 4], (n) => n < 3); // [1, 2]
 
 /**
  * 34. dropWhile
@@ -129,7 +129,7 @@ const dropWhile = (arr, func) => {
   return arr;
 };
 
-dropWhile([1, 2, 3, 4], n => n >= 3); // [3,4]
+dropWhile([1, 2, 3, 4], (n) => n >= 3); // [3,4]
 
 /**
  * 38. findLast
@@ -137,7 +137,7 @@ dropWhile([1, 2, 3, 4], n => n >= 3); // [3,4]
  */
 const findLast = (arr, fn) => arr.filter(fn).pop();
 
-findLast([1, 2, 3, 4], n => n % 2 === 1); // 3
+findLast([1, 2, 3, 4], (n) => n % 2 === 1); // 3
 
 /**
  * 39. flatten
@@ -158,12 +158,9 @@ flatten([1, [2, [3, [4, 5], 6], 7], 8], 2); // [1, 2, 3, [4, 5], 6, 7, 8]
  * This snippet executes a function for each element of an array starting from the array’s last element.
  */
 const forEachRight = (arr, callback) =>
-  arr
-    .slice(0)
-    .reverse()
-    .forEach(callback);
+  arr.slice(0).reverse().forEach(callback);
 
-forEachRight([1, 2, 3, 4], val => console.log(val)); // '4', '3', '2', '1'
+forEachRight([1, 2, 3, 4], (val) => console.log(val)); // '4', '3', '2', '1'
 
 /**
  * 51. indexOfAll
@@ -179,7 +176,7 @@ indexOfAll([1, 2, 3], 4); // []
  * 52. initial
  * This snippet returns all elements of an array except the last one.
  */
-const initial = arr => arr.slice(0, -1);
+const initial = (arr) => arr.slice(0, -1);
 
 initial([1, 2, 3]); // [1,2]const initial = arr => arr.slice(0, -1);
 initial([1, 2, 3]); // [1,2]
@@ -190,7 +187,7 @@ initial([1, 2, 3]); // [1,2]
  */
 const intersection = (a, b) => {
   const s = new Set(b);
-  return a.filter(x => s.has(x));
+  return a.filter((x) => s.has(x));
 };
 
 intersection([1, 2, 3], [4, 3, 2]); // [2, 3]
@@ -201,7 +198,7 @@ intersection([1, 2, 3], [4, 3, 2]); // [2, 3]
  */
 const intersectionBy = (a, b, fn) => {
   const s = new Set(b.map(fn));
-  return a.filter(x => s.has(fn(x)));
+  return a.filter((x) => s.has(fn(x)));
 };
 
 intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]
@@ -211,7 +208,7 @@ intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]
  * This snippet can be used to return a list of elements that exist in both arrays by using a comparator function.
  */
 const intersectionWith = (a, b, comp) =>
-  a.filter(x => b.findIndex(y => comp(x, y)) !== -1);
+  a.filter((x) => b.findIndex((y) => comp(x, y)) !== -1);
 
 intersectionWith(
   [1, 1.2, 1.5, 3, 0],
@@ -224,7 +221,7 @@ intersectionWith(
  * This snippet can be used to check whether a particular string is an anagram with another string.
  */
 const isAnagram = (str1, str2) => {
-  const normalize = str =>
+  const normalize = (str) =>
     str
       .toLowerCase()
       .replace(/[^a-z0-9]/gi, '')
@@ -240,7 +237,7 @@ isAnagram('iceman', 'cinema'); // true
  * 61. isArrayLike
  * This snippet can be used to check if a provided argument is iterable like an array.
  */
-const isArrayLike = obj =>
+const isArrayLike = (obj) =>
   obj != null && typeof obj[Symbol.iterator] === 'function';
 
 isArrayLike(document.querySelectorAll('.className')); // true
@@ -260,9 +257,9 @@ maxN([1, 2, 3], 2); // [3,2]
  * 86. negate
  * This snippet can be used to apply the not operator (!) to a predicate function with its arguments.
  */
-const negate = func => (...args) => !func(...args);
+const negate = (func) => (...args) => !func(...args);
 
-[1, 2, 3, 4, 5, 6].filter(negate(n => n % 2 === 0)); // [ 1, 3, 5 ]
+[1, 2, 3, 4, 5, 6].filter(negate((n) => n % 2 === 0)); // [ 1, 3, 5 ]
 
 /**
  * 91. randomIntArrayInRange
@@ -280,7 +277,7 @@ randomIntArrayInRange(12, 35, 10); // [ 34, 14, 27, 17, 30, 27, 20, 26, 21, 14 ]
  * 99. sample
  * This snippet can be used to get a random number from an array.
  */
-const sample = arr => arr[Math.floor(Math.random() * arr.length)];
+const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 sample([3, 7, 9, 11]); // 9
 
@@ -320,7 +317,7 @@ shuffle(foo); // [2, 3, 1], foo = [1, 2, 3]
  * 107. similarity
  * This snippet can be used to return an array of elements that appear in two arrays.
  */
-const similarity = (arr, values) => arr.filter(v => values.includes(v));
+const similarity = (arr, values) => arr.filter((v) => values.includes(v));
 
 similarity([1, 2, 3], [1, 2, 4]); // [1, 2]
 
@@ -337,7 +334,7 @@ sum(...[1, 2, 3, 4]); // 10
  * 114. tail
  * This snippet can be used to get an array with all the elements of an array except for the first one. If the array has only one element, then that an array with that element will be returned instead.
  */
-const tail = arr => (arr.length > 1 ? arr.slice(1) : arr);
+const tail = (arr) => (arr.length > 1 ? arr.slice(1) : arr);
 
 tail([1, 2, 3]); // [2,3]
 tail([1]); // [1]
@@ -374,7 +371,7 @@ union([1, 2, 3], [4, 3, 2]); // [1,2,3,4]
  * This snippet uses ES6 Set and the …rest operator to get every element only once.
  */
 
-const uniqueElements = arr => [...new Set(arr)];
+const uniqueElements = (arr) => [...new Set(arr)];
 
 uniqueElements([1, 2, 2, 3, 4, 4, 5]); // [1, 2, 3, 4, 5]
 
@@ -389,3 +386,9 @@ console.log(arr.splice(-1)); // 5
  */
 const list = [1, 2, 3];
 console.log(list.sort(() => Math.random() - 0.5)); // [2,1,3]
+
+/**
+ * Max / min of array.
+ */
+const list = [1, 2, 3];
+console.log(Math.max(...list), Math.min(...list)); // 3, 1
