@@ -1,0 +1,48 @@
+/**
+ * CSS only tooltip.
+ */
+// html <a data-tool-tip='My little tooltip.' >A random link</a >
+// css
+a {
+  position: relative;
+  &[data-tool-tip] {
+    &::after {
+      content: attr(data-tool-tip);
+      display: block;
+      position: absolute;
+      background-color: #ccc;
+      border-radius: 5px;
+      padding: 1em 3em;
+      color: white;
+      font-size: 0.8em;
+      bottom: 0;
+      left: 0;
+      white-space: nowrap;
+      transform: scale(0);
+      transition: transform ease-out 150ms, bottom ease-out 150ms;
+    }
+    &:hover::after {
+      bottom: 100%;
+      transform: scale(1);
+    }
+  }
+}
+
+/**
+  * Clever multicolumn responsive layout with flex.
+  */
+.split {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 40em) {
+  .split {
+    flex-direction: row;
+  }
+  .split > * {
+    flex-basis: 100%; /* makes them even */
+  }
+  .split > * + * {
+    margin-left: 2em; /* clever gutter */
+  }
+}
