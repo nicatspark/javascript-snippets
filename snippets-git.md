@@ -205,3 +205,20 @@ esc = gå ur insert mode
 :x = spara och stäng
 :q = stäng
 ```
+
+## Terminal
+
+#### List and kill process
+
+```
+lsof -i :[port number] // replace with port number.
+kill [pid]             // replace with process id.
+```
+
+#### Clear screen and back buffer
+
+`clear && echo -en "\e[3J"`
+
+or store in a alias
+
+`alias cls='clear && echo -en "\e[3J"'`
