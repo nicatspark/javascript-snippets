@@ -120,7 +120,7 @@ git branch --contains [branch/tag/commit]
 `git remote add upstream [clone repo from github]`
 `git fetch upstream`
 
-## Tag
+#### Tag
 
 `add: git tag -f [tagname]`
 `delete: git push upstream :[tagname]`
@@ -222,3 +222,14 @@ kill [pid]             // replace with process id.
 or store in a alias
 
 `alias cls='clear && echo -en "\e[3J"'`
+
+#### List your aliases
+
+`git config --get-regexp alias`
+
+My current aliases:
+
+```
+alias.lg log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+alias.next checkout
+```
