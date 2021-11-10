@@ -4,40 +4,40 @@ This snippet executes a function, returning either the result or the caught erro
 */
 const attempt = (fn, ...args) => {
   try {
-    return fn(...args);
+    return fn(...args)
   } catch (e) {
-    return e instanceof Error ? e : new Error(e);
+    return e instanceof Error ? e : new Error(e)
   }
-};
+}
 var elements = attempt(function (selector) {
-  return document.querySelectorAll(selector);
-}, '>_>');
-if (elements instanceof Error) elements = []; // elements = []
+  return document.querySelectorAll(selector)
+}, '>_>')
+if (elements instanceof Error) elements = [] // elements = []
 
 /**
  * 7. average
  * This snippet returns the average of two or more numerical values.
  */
 const average = (...nums) =>
-  nums.reduce((acc, val) => acc + val, 0) / nums.length;
-average(...[1, 2, 3]); // 2
-average(1, 2, 3); // 2
+  nums.reduce((acc, val) => acc + val, 0) / nums.length
+average(...[1, 2, 3]) // 2
+average(1, 2, 3) // 2
 
 /**
  * 24. defer
  * This snippet delays the execution of a function until the current call stack is cleared.
  */
-const defer = (fn, ...args) => setTimeout(fn, 1, ...args);
+const defer = (fn, ...args) => setTimeout(fn, 1, ...args)
 
-defer(console.log, 'a'), console.log('b'); // logs 'b' then 'a'
+defer(console.log, 'a'), console.log('b') // logs 'b' then 'a'
 
 /**
  * 42. functionName
  * This snippet prints the name of a function into the console.
  */
-const functionName = (fn) => (console.debug(fn.name), fn);
+const functionName = (fn) => (console.debug(fn.name), fn)
 
-functionName(Math.max); // max (logged in debug channel of console)
+functionName(Math.max) // max (logged in debug channel of console)
 
 /**
  * 46. getType
@@ -48,29 +48,29 @@ const getType = (v) =>
     ? 'undefined'
     : v === null
     ? 'null'
-    : v.constructor.name.toLowerCase();
+    : v.constructor.name.toLowerCase()
 
-getType(new Set([1, 2, 3])); // 'set'
+getType(new Set([1, 2, 3])) // 'set'
 
 /**
  * 58. is
  * This snippet can be used to check if a value is of a particular type.
  */
-const is = (type, val) => ![, null].includes(val) && val.constructor === type;
+const is = (type, val) => ![, null].includes(val) && val.constructor === type
 
-is(Array, [1]); // true
-is(ArrayBuffer, new ArrayBuffer()); // true
-is(Map, new Map()); // true
-is(RegExp, /./g); // true
-is(Set, new Set()); // true
-is(WeakMap, new WeakMap()); // true
-is(WeakSet, new WeakSet()); // true
-is(String, ''); // true
-is(String, new String('')); // true
-is(Number, 1); // true
-is(Number, new Number(1)); // true
-is(Boolean, true); // true
-is(Boolean, new Boolean(true)); // true
+is(Array, [1]) // true
+is(ArrayBuffer, new ArrayBuffer()) // true
+is(Map, new Map()) // true
+is(RegExp, /./g) // true
+is(Set, new Set()) // true
+is(WeakMap, new WeakMap()) // true
+is(WeakSet, new WeakSet()) // true
+is(String, '') // true
+is(String, new String('')) // true
+is(Number, 1) // true
+is(Number, new Number(1)) // true
+is(Boolean, true) // true
+is(Boolean, new Boolean(true)) // true
 
 /**
  * 69. isNumber
@@ -78,11 +78,11 @@ is(Boolean, new Boolean(true)); // true
  */
 
 function isNumber(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
+  return !isNaN(parseFloat(n)) && isFinite(n)
 }
 
-isNumber('1'); // false
-isNumber(1); // true
+isNumber('1') // false
+isNumber(1) // true
 
 /**
  * 73. isPromiseLike
@@ -92,27 +92,27 @@ isNumber(1); // true
 const isPromiseLike = (obj) =>
   obj !== null &&
   (typeof obj === 'object' || typeof obj === 'function') &&
-  typeof obj.then === 'function';
+  typeof obj.then === 'function'
 
 isPromiseLike({
   then: function () {
-    return '';
+    return ''
   },
-}); // true
-isPromiseLike(null); // false
-isPromiseLike({}); // false
+}) // true
+isPromiseLike(null) // false
+isPromiseLike({}) // false
 
 /**
  * isPromise / isFunction (similar to the above but less code)
  * Checks if function is a promise. Note that it will execute them aswell.
  */
 const isPromise = (item) =>
-  Object.prototype.toString.call(item) == '[object Promise]';
+  Object.prototype.toString.call(item) == '[object Promise]'
 const isFunction = (item) =>
-  Object.prototype.toString.call(item) == '[object Function]';
+  Object.prototype.toString.call(item) == '[object Function]'
 
-isPromise(new Promise(() => {})); // true
-isFunction(() => {}); // true
+isPromise(new Promise(() => {})) // true
+isFunction(() => {}) // true
 
 /**
  * 79. isValidJSON
@@ -120,58 +120,58 @@ isFunction(() => {}); // true
  */
 const isValidJSON = (str) => {
   try {
-    JSON.parse(str);
-    return true;
+    JSON.parse(str)
+    return true
   } catch (e) {
-    return false;
+    return false
   }
-};
+}
 
-isValidJSON('{"name":"Adam","age":20}'); // true
-isValidJSON('{"name":"Adam",age:"20"}'); // false
-isValidJSON(null); // true
+isValidJSON('{"name":"Adam","age":20}') // true
+isValidJSON('{"name":"Adam",age:"20"}') // false
+isValidJSON(null) // true
 
 /**
  * 85. minN
  * This snippet returns the n smallest elements from a list. If n is greater than or equal to the list’s length, then it will return the original list (sorted in ascending order).
  */
-const minN = (arr, n = 1) => [...arr].sort((a, b) => a - b).slice(0, n);
+const minN = (arr, n = 1) => [...arr].sort((a, b) => a - b).slice(0, n)
 
-minN([1, 2, 3]); // [1]
-minN([1, 2, 3], 2); // [1,2]
+minN([1, 2, 3]) // [1]
+minN([1, 2, 3], 2) // [1,2]
 
 /**
  * 90. Random Hexadecimal Color Code
  * This snippet can be used to generate a random hexadecimal color code.
  */
 const randomHexColorCode = () => {
-  let n = (Math.random() * 0xfffff * 1000000).toString(16);
-  return '#' + n.slice(0, 6);
-};
+  let n = (Math.random() * 0xfffff * 1000000).toString(16)
+  return '#' + n.slice(0, 6)
+}
 
-randomHexColorCode(); // "#e34155"
+randomHexColorCode() // "#e34155"
 
 /**
  * 98. runPromisesInSeries
  * This snippet can be used to run an array of promises in series.
  */
 const runPromisesInSeries = (ps) =>
-  ps.reduce((p, next) => p.then(next), Promise.resolve());
-const delay = (d) => new Promise((r) => setTimeout(r, d));
+  ps.reduce((p, next) => p.then(next), Promise.resolve())
+const delay = (d) => new Promise((r) => setTimeout(r, d))
 
-runPromisesInSeries([() => delay(1000), () => delay(2000)]);
+runPromisesInSeries([() => delay(1000), () => delay(2000)])
 // Executes each promise sequentially, taking a total of 3 seconds to complete
 
 /**
  * 108. sleep
  * This snippet can be used to delay the execution of an asynchronous function by putting it into sleep.
  */
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 async function sleepyWork() {
-  console.log("I'm going to sleep for 1 second.");
-  await sleep(1000);
-  console.log('I woke up after 1 second.');
+  console.log("I'm going to sleep for 1 second.")
+  await sleep(1000)
+  console.log('I woke up after 1 second.')
 }
 
 /**
@@ -179,26 +179,26 @@ async function sleepyWork() {
  * This snippet can be used to find out the time it takes to execute a function.
  */
 const timeTaken = (callback) => {
-  console.time('timeTaken');
-  const r = callback();
-  console.timeEnd('timeTaken');
-  return r;
-};
+  console.time('timeTaken')
+  const r = callback()
+  console.timeEnd('timeTaken')
+  return r
+}
 
-timeTaken(() => Math.pow(2, 10)); // 1024, (logged): timeTaken: 0.02099609375ms
+timeTaken(() => Math.pow(2, 10)) // 1024, (logged): timeTaken: 0.02099609375ms
 
 /**
  * 118. times
  * This snippet can be used to iterate over a callback n times.
  */
 const times = (n, fn, context = undefined) => {
-  let i = 0;
+  let i = 0
   while (fn.call(context, i) !== false && ++i < n) {}
-};
+}
 
-var output = '';
-times(5, (i) => (output += i));
-console.log(output); // 01234
+var output = ''
+times(5, (i) => (output += i))
+console.log(output) // 01234
 
 /**
  * 119. toCurrency
@@ -208,30 +208,30 @@ const toCurrency = (n, curr, LanguageFormat = undefined) =>
   Intl.NumberFormat(LanguageFormat, {
     style: 'currency',
     currency: curr,
-  }).format(n);
+  }).format(n)
 
-toCurrency(123456.789, 'EUR'); // €123,456.79  | currency: Euro | currencyLangFormat: Local
-toCurrency(123456.789, 'USD', 'en-us'); // $123,456.79  | currency: US Dollar | currencyLangFormat: English (United States)
-toCurrency(123456.789, 'USD', 'fa'); // ۱۲۳٬۴۵۶٫۷۹ ؜$ | currency: US Dollar | currencyLangFormat: Farsi
-toCurrency(322342436423.2435, 'JPY'); // ¥322,342,436,423 | currency: Japanese Yen | currencyLangFormat: Local
-toCurrency(322342436423.2435, 'JPY', 'fi'); // 322 342 436 423 ¥ | currency: Japanese Yen | currencyLangFormat: Finnish
+toCurrency(123456.789, 'EUR') // €123,456.79  | currency: Euro | currencyLangFormat: Local
+toCurrency(123456.789, 'USD', 'en-us') // $123,456.79  | currency: US Dollar | currencyLangFormat: English (United States)
+toCurrency(123456.789, 'USD', 'fa') // ۱۲۳٬۴۵۶٫۷۹ ؜$ | currency: US Dollar | currencyLangFormat: Farsi
+toCurrency(322342436423.2435, 'JPY') // ¥322,342,436,423 | currency: Japanese Yen | currencyLangFormat: Local
+toCurrency(322342436423.2435, 'JPY', 'fi') // 322 342 436 423 ¥ | currency: Japanese Yen | currencyLangFormat: Finnish
 
 /**
  * 120. toDecimalMark
  * This snippet uses the toLocaleString() function to convert float-point arithmetic to the decimal mark form by using a number to make a comma-separated string.
  */
-const toDecimalMark = (num) => num.toLocaleString('en-US');
+const toDecimalMark = (num) => num.toLocaleString('en-US')
 
-toDecimalMark(12305030388.9087); // "12,305,030,388.909"
+toDecimalMark(12305030388.9087) // "12,305,030,388.909"
 
 /**
  * 126. validateNumber
  * This snippet can be used to check whether a value is a number.
  */
 const validateNumber = (n) =>
-  !isNaN(parseFloat(n)) && isFinite(n) && Number(n) == n;
+  !isNaN(parseFloat(n)) && isFinite(n) && Number(n) == n
 
-validateNumber('10'); // true
+validateNumber('10') // true
 
 /**
  * The Publisher/Subscriber Pattern in JavaScript
@@ -245,56 +245,56 @@ validateNumber('10'); // true
  */
 
 function pubSub() {
-  const subscribers = {};
+  const subscribers = {}
 
   function publish(eventName, data) {
     if (!Array.isArray(subscribers[eventName])) {
-      return;
+      return
     }
     subscribers[eventName].forEach((callback) => {
-      callback(data);
-    });
+      callback(data)
+    })
   }
 
   function subscribe(eventName, callback) {
     if (!Array.isArray(subscribers[eventName])) {
-      subscribers[eventName] = [];
+      subscribers[eventName] = []
     }
 
-    subscribers[eventName].push(callback);
+    subscribers[eventName].push(callback)
 
-    const index = subscribers[eventName].length - 1;
+    const index = subscribers[eventName].length - 1
 
     return {
       unsubscribe() {
-        subscribers[eventName].splice(index, 1);
+        subscribers[eventName].splice(index, 1)
         /* Alt. without using index */
         // subscribers[eventName] = subscribers[eventName].filter((cb) => {
         //   /* Does not include the callback in the new array */
         //   return (cb === callback)? false: true;
         // })
       },
-    };
+    }
   }
 
   return {
     publish,
     subscribe,
-  };
+  }
 }
 // ===========
 function showMeTheMoney(money) {
-  console.log(money);
+  console.log(money)
 }
-pubSub().subscribe('show-money', showMeTheMoney);
+pubSub().subscribe('show-money', showMeTheMoney)
 // Later...
-pubSub().publish('show-money', 1000000);
+pubSub().publish('show-money', 1000000)
 //============
 const unsubscribeFood = subscribe('food', function (data) {
-  console.log(`Received some food: ${data}`);
-});
+  console.log(`Received some food: ${data}`)
+})
 // Removes the subscribed callback
-unsubscribeFood();
+unsubscribeFood()
 
 /**
  * Cancellable fetch
@@ -303,62 +303,61 @@ unsubscribeFood();
  */
 
 export function cancelableFetch(reqInfo, reqInit) {
-  const abortController = new AbortController();
-  const signal = abortController.signal;
-  const cancel = abortController.abort.bind(abortController);
+  const abortController = new AbortController()
+  const signal = abortController.signal
+  const cancel = abortController.abort.bind(abortController)
 
   const wrapResult = function (result) {
     if (result instanceof Promise) {
-      var promise = result;
+      var promise = result
       promise.then = function (onfulfilled, onrejected) {
         var nativeThenResult = Object.getPrototypeOf(this).then.call(
           this,
           onfulfilled,
           onrejected
-        );
-        return wrapResult(nativeThenResult);
-      };
-      promise.cancel = cancel;
+        )
+        return wrapResult(nativeThenResult)
+      }
+      promise.cancel = cancel
     }
-    return result;
-  };
+    return result
+  }
 
-  const req = window.fetch(reqInfo, Object.assign({ signal: signal }, reqInit));
-  return wrapResult(req);
+  const req = window.fetch(reqInfo, Object.assign({ signal: signal }, reqInit))
+  return wrapResult(req)
 }
 // ===========
 const req = cancelableFetch('/api/config')
   .then((res) => res.json())
   .catch((err) => {
     if (err.code === DOMException.ABORT_ERR) {
-      console.log('Request canceled.');
+      console.log('Request canceled.')
     } else {
       // handle error
     }
-  });
+  })
 
-setTimeout(() => req.cancel(), 2000);
+setTimeout(() => req.cancel(), 2000)
 
 /**
  * Run a (anonymous) function recursivly a countdown number of
  * times until condition are met or countdown is done.
  */
-
-({
+;({
   do({ countdown } = { countdown: 5 }) {
-    console.log('Counting down: ' + countdown);
-    countdown--;
+    console.log('Counting down: ' + countdown)
+    countdown--
     // Do (asynk) work.
-    if (countdown !== 0) setTimeout(() => this.do({ countdown }), 1000);
+    if (countdown !== 0) setTimeout(() => this.do({ countdown }), 1000)
   },
-}.do());
+}.do())
 
 /**
  * Return a random boolean.
  * Result: a 50/50 change on returning true of false
  */
-const randomBoolean = () => Math.random() >= 0.5;
-console.log(randomBoolean());
+const randomBoolean = () => Math.random() >= 0.5
+console.log(randomBoolean())
 
 /**
  * Check if the provided day is a weekday.
@@ -366,10 +365,10 @@ console.log(randomBoolean());
  * if the date that you provide in the function
  * is either a weekday or weekend day.
  */
-const isWeekday = (date) => date.getDay() % 6 !== 0;
-console.log(isWeekday(new Date(2021, 0, 11)));
+const isWeekday = (date) => date.getDay() % 6 !== 0
+console.log(isWeekday(new Date(2021, 0, 11)))
 // Result: true (Monday)
-console.log(isWeekday(new Date(2021, 0, 10)));
+console.log(isWeekday(new Date(2021, 0, 10)))
 // Result: false (Sunday)
 
 /**
@@ -377,8 +376,8 @@ console.log(isWeekday(new Date(2021, 0, 10)));
  * We can check if the current tab is in view / focus
  * by using the document.hidden property.
  */
-const isBrowserTabInView = () => document.hidden;
-isBrowserTabInView();
+const isBrowserTabInView = () => document.hidden
+isBrowserTabInView()
 // Result: returns true or false depending on
 // if tab is in view / focus
 
@@ -388,10 +387,10 @@ isBrowserTabInView();
  * operator (%). If you’re not too familiar with it, here’s a
  * nice visual explanation on Stack Overflow.
  */
-const isEven = (num) => num % 2 === 0;
-console.log(isEven(2));
+const isEven = (num) => num % 2 === 0
+console.log(isEven(2))
 // Result: true
-console.log(isEven(3));
+console.log(isEven(3))
 // Result: false
 
 /**
@@ -400,10 +399,10 @@ console.log(isEven(3));
  * correct place, we can get the time from a date that we provide,
  * or get the current time.
  */
-const timeFromDate = (date) => date.toTimeString().slice(0, 8);
-console.log(timeFromDate(new Date(2021, 0, 10, 17, 30, 0)));
+const timeFromDate = (date) => date.toTimeString().slice(0, 8)
+console.log(timeFromDate(new Date(2021, 0, 10, 17, 30, 0)))
 // Result: "17:30:00"
-console.log(timeFromDate(new Date()));
+console.log(timeFromDate(new Date()))
 // Result: will log the current time
 
 /**
@@ -411,22 +410,22 @@ console.log(timeFromDate(new Date()));
  * Using the Math.pow() method, we can truncate a number to a certain
  * decimal point that we provide in the function.
  */
-const toFixed = (n, fixed) => ~~(Math.pow(10, fixed) * n) / Math.pow(10, fixed);
+const toFixed = (n, fixed) => ~~(Math.pow(10, fixed) * n) / Math.pow(10, fixed)
 // Examples
-toFixed(25.198726354, 1); // 25.1
-toFixed(25.198726354, 2); // 25.19
-toFixed(25.198726354, 3); // 25.198
-toFixed(25.198726354, 4); // 25.1987
-toFixed(25.198726354, 5); // 25.19872
-toFixed(25.198726354, 6); // 25.198726
+toFixed(25.198726354, 1) // 25.1
+toFixed(25.198726354, 2) // 25.19
+toFixed(25.198726354, 3) // 25.198
+toFixed(25.198726354, 4) // 25.1987
+toFixed(25.198726354, 5) // 25.19872
+toFixed(25.198726354, 6) // 25.198726
 
 /**
  * Check if an element is currently in focus.
  * We can check if an element is currently in focus using the
  * document.activeElement property.
  */
-const elementIsInFocus = (el) => el === document.activeElement;
-elementIsInFocus(anyElement);
+const elementIsInFocus = (el) => el === document.activeElement
+elementIsInFocus(anyElement)
 // Result: will return true if in focus, false if not in focus
 
 /**
@@ -434,8 +433,8 @@ elementIsInFocus(anyElement);
  */
 const touchSupported = () =>
   'ontouchstart' in window ||
-  (window.DocumentTouch && document instanceof window.DocumentTouch);
-console.log(touchSupported());
+  (window.DocumentTouch && document instanceof window.DocumentTouch)
+console.log(touchSupported())
 // Result: will return true if touch events are supported, false if not
 
 /**
@@ -443,8 +442,8 @@ console.log(touchSupported());
  * We can use navigator.platform to check if the current user is
  * on an Apple device.
  */
-const isAppleDevice = /Mac|iPod|iPhone|iPad/.test(navigator.platform);
-console.log(isAppleDevice);
+const isAppleDevice = /Mac|iPod|iPhone|iPad/.test(navigator.platform)
+console.log(isAppleDevice)
 // Result: will return true if user is on an Apple device
 
 /**
@@ -453,8 +452,8 @@ console.log(isAppleDevice);
  * scroll to. If we set these to zero and zero, we’ll scroll to the
  * top of the page.
  */
-const goToTop = () => window.scrollTo(0, 0);
-goToTop();
+const goToTop = () => window.scrollTo(0, 0)
+goToTop()
 // Result: will scroll the browser to the top of the page
 
 /**
@@ -462,8 +461,8 @@ goToTop();
  * We can use the reduce method to get the average value of the
  * arguments that we provide in this function.
  */
-const average = (...args) => args.reduce((a, b) => a + b) / args.length;
-average(1, 2, 3, 4);
+const average = (...args) => args.reduce((a, b) => a + b) / args.length
+average(1, 2, 3, 4)
 // Result: 2.5
 
 /**
@@ -471,11 +470,16 @@ average(1, 2, 3, 4);
  * Dealing with temperatures can be confusing at times. These 2 functions
  * will help you convert Fahrenheit to Celsius and the other way around.
  */
-const celsiusToFahrenheit = (celsius) => (celsius * 9) / 5 + 32;
-const fahrenheitToCelsius = (fahrenheit) => ((fahrenheit - 32) * 5) / 9;
+const celsiusToFahrenheit = (celsius) => (celsius * 9) / 5 + 32
+const fahrenheitToCelsius = (fahrenheit) => ((fahrenheit - 32) * 5) / 9
 // Examples
-celsiusToFahrenheit(15); // 59
-celsiusToFahrenheit(0); // 32
-celsiusToFahrenheit(-20); // -4
-fahrenheitToCelsius(59); // 15
-fahrenheitToCelsius(32); // 0
+celsiusToFahrenheit(15) // 59
+celsiusToFahrenheit(0) // 32
+celsiusToFahrenheit(-20) // -4
+fahrenheitToCelsius(59) // 15
+fahrenheitToCelsius(32) // 0
+
+/**
+ * Get selected text on webpage
+ */
+const getSelectedText = () => window.getSelection().toString()
