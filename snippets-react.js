@@ -74,3 +74,41 @@
   React.createElement("div", null, React.createElement("h1", {
     className: "greeting"
   }, "Hello, world!"), React.createElement("p", null, " lalalalala "));
+
+  /**
+   * Cacellable fetch and clean up in react
+   */
+   export default function User({ id }) {
+    const [user, setUser] = useState(null);
+  
+    useEffect(() => {
+      let controller = new AbortController();
+      (async () => {
+        try {
+          const response = await fetch(
+            `https://jsonplaceholder.typicode.com/users/${id}`,
+            {
+              signal: controller.signal,
+            },
+          );
+          setUser(await response.json());
+          controller = null;
+        } catch (e) {
+          // Handle the error
+        }
+      })();
+      // clean up function
+      return () => controller?.abort();
+      // add a dependency array
+    }, [id]);
+  
+    return (
+      <div>
+        {user === null ? (
+          <p>Loading user's data ...</p>
+        ) : (
+          <pre key={user.id}>{user.name}</pre>
+        )}
+      </div>
+    );
+  };
