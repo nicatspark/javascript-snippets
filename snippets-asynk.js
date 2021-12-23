@@ -29,5 +29,5 @@ const foo = event.onCall(async () => {
  * Native fetch in a one-liner.
  */
 const getPost = async (id) => {
-  return await (await fetch(`https://jsonplaceholder.typicode.com/posts/${id})).json()
+  return await (await fetch(`https://jsonplaceholder.typicode.com/posts/${id}}`)).json()
 }
