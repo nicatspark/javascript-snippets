@@ -483,3 +483,43 @@ fahrenheitToCelsius(32) // 0
  * Get selected text on webpage
  */
 const getSelectedText = () => window.getSelection().toString()
+
+
+/**
+ * Serialize a function together with environment variables.
+ */
+
+// First, what we want to serialize.
+ const a = 123, b = 'hello';
+ function test(x, y) {
+   console.log(this);
+   return a + x + b + y;
+ }
+ 
+ // Serialize a function *with its captured environment*
+ const sf = serializeFn().serialize(test, { a: a, b: b });
+ 
+ // Deserialize with captured environment
+ const pf = serializeFn().parse(sf);
+ 
+ // And call it
+ console.log(pf(10, ', world'));
+
+ function serializeFn() {
+     const serialize = (f, env) => JSON.stringify({ src: f.toString(), env: env });
+     const parse = (serialized) => {
+         const parsed = JSON.parse(serialized);
+         return createFunction(parsed.src, parsed.env || {});
+     }
+     const createFunction = (src, env) => (new Function(createFunctionBody(src, env))(env));
+     const createFunctionBody = (src, env) => '"use strict";\n' + Object.keys(env).reduceRight(addVar, 'return ' + src + ';');
+     const addVar = (s, k) => 'var ' + k + ' = arguments[0].' + k + ';\n' + s;
+     return {serialize,parse}
+ }
+ 
+
+ /**
+  * Create a hash of any string.
+  */
+ const hashCode = s => s.split('').reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0)
+ 
