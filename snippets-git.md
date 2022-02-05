@@ -1,6 +1,6 @@
 #### "Restart" git after git ingore updated.
 
-```
+```bash
   git rm -rf --cached .
   git add .
 ```
@@ -54,10 +54,14 @@ git branch --contains [branch/tag/commit]
 
 #### Create branch
 
-`git fetch upstream`
-`git checkout upstream/release/3 -b [new branch]`
+`git fetch origin`
+`git checkout origin/main -b [new branch]`
 
-#### Checkout or diff between two branches
+### Pull branch from remote
+
+`git checkout --track origin/daves_branch`
+
+#### Checkout or diff between two branches on specific file
 
 `git diff [branch1] [branch2] -- [filepath]`
 
@@ -68,8 +72,8 @@ git branch --contains [branch/tag/commit]
 #### Uppdatera master
 
 `git fetch --all`
-`git checkout master`
-`git pull upstream master`
+`git checkout main`
+`git pull origin main`
 
 #### Flytta master downstream (framåt)
 
@@ -104,6 +108,15 @@ git branch --contains [branch/tag/commit]
 #### Squash rebase
 
 `git rebase -i HEAD~4`
+
+#### Squash all your commits (in your branch) and reset the index to maincode
+
+```bash
+git checkout yourBranch
+git reset $(git merge-base master $(git rev-parse --abbrev-ref HEAD))
+git add -A
+git commit -m "one commit on yourBranch"
+```
 
 #### Search in commits
 
@@ -199,7 +212,7 @@ If you made lot of things after your git reset --hard, then you should search yo
 
 ## VIM
 
-```
+```text
 i = insert mode
 esc = gå ur insert mode
 :x = spara och stäng
@@ -210,7 +223,7 @@ esc = gå ur insert mode
 
 #### List and kill process
 
-```
+```bash
 lsof -i :[port number] // replace with port number.
 kill [pid]             // replace with process id.
 ```
@@ -229,7 +242,23 @@ or store in a alias
 
 My current aliases:
 
-```
+```bash
 alias.lg log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 alias.next checkout
 ```
+
+#### Partial cherry-pick
+
+Credits to https://stackoverflow.com/a/5717615/7193150
+
+```bash
+git cherry-pick -n $1
+git reset HEAD
+git add src/
+git checkout .
+git commit -C $1
+```
+
+#### List unused typescript exports
+
+npx ts-prune | grep -v 'used in module'
