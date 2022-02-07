@@ -327,3 +327,24 @@ nav h1 {
 }
 // The :where works similarly but the specificity is always zero 
 // where the :is specificity is of the overall selector.
+
+/*
+ * CSS Pie Timer
+ * My codepen example at https://codepen.io/nicolashervy/pen/KKyMXVg
+ * Note: Won't work in firefox yet.
+ */
+ @property --a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 10deg;
+}
+
+.pie {
+  --a: 10deg; /*  needed for firefox to have a valid output */
+  background-image: conic-gradient(#fff var(--a), #000 0% 100%);
+  border-radius: 50%;
+  transition: --a 3s linear;
+  &:hover {
+    --a: 360deg;
+  }
+}
