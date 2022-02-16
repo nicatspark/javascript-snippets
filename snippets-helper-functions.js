@@ -234,69 +234,6 @@ const validateNumber = (n) =>
 validateNumber('10') // true
 
 /**
- * The Publisher/Subscriber Pattern in JavaScript
- * From https://medium.com/better-programming/the-publisher-subscriber-pattern-in-javascript-2b31b7ea075a
- * The publisher/subscriber pattern is a design pattern that allows us
- * to create powerful dynamic applications with modules that can communicate
- * with each other without being directly dependent on each other.
- * Advatage: Nifty
- * Disadvantage: Does not scale well. Can't assert if you already subscribed to the same callback before.
- * Best for: Usecases with a limited scope.
- */
-
-function pubSub() {
-  const subscribers = {}
-
-  function publish(eventName, data) {
-    if (!Array.isArray(subscribers[eventName])) {
-      return
-    }
-    subscribers[eventName].forEach((callback) => {
-      callback(data)
-    })
-  }
-
-  function subscribe(eventName, callback) {
-    if (!Array.isArray(subscribers[eventName])) {
-      subscribers[eventName] = []
-    }
-
-    subscribers[eventName].push(callback)
-
-    const index = subscribers[eventName].length - 1
-
-    return {
-      unsubscribe() {
-        subscribers[eventName].splice(index, 1)
-        /* Alt. without using index */
-        // subscribers[eventName] = subscribers[eventName].filter((cb) => {
-        //   /* Does not include the callback in the new array */
-        //   return (cb === callback)? false: true;
-        // })
-      },
-    }
-  }
-
-  return {
-    publish,
-    subscribe,
-  }
-}
-// ===========
-function showMeTheMoney(money) {
-  console.log(money)
-}
-pubSub().subscribe('show-money', showMeTheMoney)
-// Later...
-pubSub().publish('show-money', 1000000)
-//============
-const unsubscribeFood = subscribe('food', function (data) {
-  console.log(`Received some food: ${data}`)
-})
-// Removes the subscribed callback
-unsubscribeFood()
-
-/**
  * Cancellable fetch
  * https://developers.google.com/web/updates/2017/09/abortable-fetch
  * https://developer.mozilla.org/en-US/docs/Web/API/AbortController
@@ -523,3 +460,40 @@ const getSelectedText = () => window.getSelection().toString()
   */
  const hashCode = s => s.split('').reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0)
  
+
+ /**
+  * Get text selection.
+  */
+  const getSelectedText = () => window.getSelection().toString();
+  getSelectedText();
+
+
+ /**
+  * Copy to clipboard.
+  */
+  const copyToClipboard = (text) => navigator.clipboard.writeText(text);
+  copyToClipboard("Hello World");
+
+
+  /**
+   * Clear all cookies.
+   */
+   const clearCookies = document.cookie.split(';').forEach(cookie => document.cookie = cookie.replace(/^ +/, '').replace(/=.*/, `=;expires=${new Date(0).toUTCString()};path=/`));
+
+
+   /**
+    * Turn url query params into an object.
+    */
+    const getParameters = (URL) => {
+      URL = JSON.parse('{"' + decodeURI(URL.split("?")[1]).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') +'"}');
+      return JSON.stringify(URL);
+    };
+    getParameters(window.location)
+    // Result: { search : "easy", page : 3 }
+
+
+    /**
+     * Detect dark mode.
+     */
+     const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+     console.log(isDarkMode) // Result: True or False
