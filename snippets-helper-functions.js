@@ -144,13 +144,12 @@ minN([1, 2, 3], 2) // [1,2]
  * 90. Random Hexadecimal Color Code
  * This snippet can be used to generate a random hexadecimal color code.
  */
-const randomHexColorCode = () => {
-  let n = (Math.random() * 0xfffff * 1000000).toString(16)
-  return '#' + n.slice(0, 6)
-}
+ const generateRandomHexColor = () =>
+ `#${Math.floor(Math.random() * 0xffffff).toString(16)}`;
 
-randomHexColorCode() // "#e34155"
+ generateRandomHexColor() // "#e34155"
 
+ 
 /**
  * 98. runPromisesInSeries
  * This snippet can be used to run an array of promises in series.
@@ -471,7 +470,8 @@ const getSelectedText = () => window.getSelection().toString()
  /**
   * Copy to clipboard.
   */
-  const copyToClipboard = (text) => navigator.clipboard.writeText(text);
+  const copyToClipboard = (text) =>
+  navigator.clipboard?.writeText && navigator.clipboard.writeText(text);
   copyToClipboard("Hello World");
 
 
@@ -497,3 +497,12 @@ const getSelectedText = () => window.getSelection().toString()
      */
      const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
      console.log(isDarkMode) // Result: True or False
+
+     /**
+      * Scroll to top / bottom.
+      */
+      const scrollToTop = (element) =>
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      const scrollToBottom = (element) =>
+  element.scrollIntoView({ behavior: "smooth", block: "end" });
