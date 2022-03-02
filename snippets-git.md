@@ -59,6 +59,14 @@ git branch --contains [branch/tag/commit]
 
 ### Pull branch from remote
 
+git fetch origin
+git branch -v -a
+git switch -c test origin/test
+
+(more info on switch ->) man git-switch
+
+_prior to git 2.23_
+
 `git checkout --track origin/daves_branch`
 
 #### Checkout or diff between two branches on specific file
