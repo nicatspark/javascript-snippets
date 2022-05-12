@@ -26,6 +26,12 @@ const centsToDollars = compose(
 );
 
 /**
+ * Basic Pipe function in typescript
+ */
+ const pipe = <T>(...fns: Array<(arg: T) => T>) => (value: T) => fns.reduce((acc, fn) => fn(acc), value);
+
+
+/**
  * Use tap and Trace for debugging inside compose
  */
 const tap = f => x => {
