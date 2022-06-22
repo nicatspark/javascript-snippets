@@ -30,6 +30,9 @@
   */
  const [, rerender] = useState()
  rerender({})
+ ...or...
+ const [, rerender] = useReducer(x => x + 1, 0);
+ rerender()
  
  
  /**
