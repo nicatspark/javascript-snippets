@@ -15,6 +15,8 @@ const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('');
 
 capitalize('fooBar'); // 'FooBar'
 capitalize('fooBar', true); // 'Foobar'
+// or...
+const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1)
 
 /**
  * 14. capitalizeEveryWord
@@ -80,3 +82,22 @@ const words = (str, pattern = /[^a-zA-Z-]+/) =>
 
 words('I love javaScript!!'); // ["I", "love", "javaScript"]
 words('python, javaScript & coffee'); // ["python", "javaScript", "coffee"]
+
+
+/**
+ * Truncate in middle.
+ */
+const truncateInMiddle = (string, length, start, end) => {
+  return `${string.slice(0, start)}...${string.slice(string.length - end)}`;
+}
+
+/**
+ * Convert string to URL slug.
+ */
+const slugify = (string) => string.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '')
+
+/**
+ * Genrate a random string.
+ */
+const randomString = () => Math.random().toString(36).slice(2)
+// for eg: y3lpt2gs5q
