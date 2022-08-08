@@ -269,4 +269,15 @@ git commit -C $1
 
 #### List unused typescript exports
 
-npx ts-prune | grep -v 'used in module'
+`npx ts-prune | grep -v 'used in module'`
+
+
+#### Delete node_modules recursively in workdirectory (not git)
+
+Print out a list of directories to be deleted:
+
+`find . -name 'node_modules' -type d -prune`
+
+Delete directories from the current working directory
+
+`find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +`
