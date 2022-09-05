@@ -287,7 +287,42 @@ function add(a, b) {
 
 
 
-// Would it be valid we removed b in the inner argument?
+// Heard of 'lexical scope'? What does that mean?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Would it be valid if we removed the 'b' argument in the inner argument?
 
 function add(a, b) {
     return a + square()
