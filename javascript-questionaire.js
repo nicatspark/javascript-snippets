@@ -1,4 +1,8 @@
 
+For CSS and HTML check https://30secondsofinterviews.org
+_________________________________________________________
+
+
 // What is an array?
 
 
@@ -175,6 +179,40 @@
 
 
 // How can we create an object?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// What is the difference between '==' and '==='
 
 
 
