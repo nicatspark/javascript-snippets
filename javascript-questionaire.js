@@ -1,5 +1,11 @@
-
-For CSS and HTML check https://30secondsofinterviews.org
+/* These are questions to asses an applicants knowledge level.
+Some question may seem as fun javascript trivia and are not used in a devs
+day to day work but it still reveals the depth of knowledge normally 
+aquired after reaching a certain level of experience. These questions
+require very good knowledge by the interviewer to parse usable result.
+Questions are supposed to lead to some discussions in a light hearted manner.
+"Pass"/"skip" are acceptable answers. It is not an interogation, it's just for fun.
+For CSS and HTML check https://30secondsofinterviews.org */
 _________________________________________________________
 
 
@@ -213,6 +219,39 @@ _________________________________________________________
 
 
 // What is the difference between '==' and '==='
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// If I say "immutablity" / "single source of truth" what do you think of?
 
 
 
