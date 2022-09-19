@@ -506,3 +506,45 @@ const getSelectedText = () => window.getSelection().toString()
 
       const scrollToBottom = (element) =>
   element.scrollIntoView({ behavior: "smooth", block: "end" });
+
+  /**
+   * Tries to execute a function until it does not return falsey, 'attempts' number of times.
+   * 
+   */
+  // Try to execute a function until it returns true or it times out.
+
+async function retrier(fn, attempts = 5, delay = 1000) {
+  let attemptIndex
+  for await (attemptIndex of retrier({ attempts, delay })) {
+    // This gets executed every 500ms
+    // And up to 5 times!
+    const result = await fn()
+    console.log('result', result, attemptIndex)
+    if (result) {
+      return {result, givingUp: false, stoppedAt: ++attemptIndex};
+    //   break
+    }
+    if (attemptIndex === attempts - 1) return {result: undefined, givingUp: true, stoppedAt: ++attemptIndex};
+  }
+  console.log('attemptIndex', attemptIndex)
+  // Helper functions
+  async function* retrier({ attempts = Infinity, delay = 100 }) {
+    for (let i = 0; i < attempts; i++) {
+      yield i
+      await pause(delay)
+    }
+  }
+  function pause(delay = 100) {
+    new Promise(resolve => setTimeout(resolve, delay))
+  }
+}
+
+// usage example
+retrier(tryOperation, 5)
+  .then(res => console.log('result is: ' + res.givingUp?'giving up':res.result))
+  .catch(_ => console.log('err'))
+
+  // function that the example tries.
+function tryOperation() {
+  return false
+}
