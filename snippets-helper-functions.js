@@ -513,38 +513,43 @@ const getSelectedText = () => window.getSelection().toString()
    */
   // Try to execute a function until it returns true or it times out.
 
-async function retrier(fn, attempts = 5, delay = 1000) {
-  let attemptIndex
-  for await (attemptIndex of retrier({ attempts, delay })) {
-    // This gets executed every 500ms
-    // And up to 5 times!
-    const result = await fn()
-    console.log('result', result, attemptIndex)
-    if (result) {
-      return {result, givingUp: false, stoppedAt: ++attemptIndex};
-    //   break
-    }
-    if (attemptIndex === attempts - 1) return {result: undefined, givingUp: true, stoppedAt: ++attemptIndex};
+  function asyncRetrier(fn, attempts = 10, options = {}) {
+    const defaultOptions = { delay: 1000, args: [] };
+    const { delay, args } = { ...defaultOptions, ...options };
+    const totalAttempts = attempts;
+    return new Promise((resolve, reject) => {
+      wrapper(fn, args)();
+      function wrapper(fn, args) {
+        attempts--;
+        console.log(attempts, args);
+        return async () => {
+          const result = await fn(...args);
+          if (!!result)
+            resolve({
+              result,
+              status: 'Success',
+              attempts: totalAttempts - attempts,
+            });
+          else if (attempts === 0)
+            reject({
+              result: undefined,
+              status: `Tried ${totalAttempts - attempts} times but failed all.`,
+              attempts: totalAttempts - attempts,
+            });
+          else setTimeout(() => wrapper(fn, args)(...args), delay, attempts);
+        };
+      }
+    });
   }
-  console.log('attemptIndex', attemptIndex)
-  // Helper functions
-  async function* retrier({ attempts = Infinity, delay = 100 }) {
-    for (let i = 0; i < attempts; i++) {
-      yield i
-      await pause(delay)
-    }
+  
+  function testFunction(str) {
+    return Math.random() - 0.5 > 0 ? str : false;
   }
-  function pause(delay = 100) {
-    new Promise(resolve => setTimeout(resolve, delay))
-  }
-}
-
-// usage example
-retrier(tryOperation, 5)
-  .then(res => console.log('result is: ' + res.givingUp?'giving up':res.result))
-  .catch(_ => console.log('err'))
-
-  // function that the example tries.
-function tryOperation() {
-  return false
-}
+  
+  asyncRetrier(testFunction, 5, { delay: 1000, args: ['myString'] })
+    .then(res =>
+      console.log(`Success after ${res.attempts} attempts, got => `, res.result),
+    )
+    .catch(err => console.log(err.status));
+  
+  
