@@ -106,7 +106,7 @@ console.log(arr["-2:3"]); // [ 5, 2, 10, 6, 8 ]
 // Once we have the enhancedObject function, we can use it like this:
 const data = enhancedObject({
     user: {
-      name: "Bytefer",
+      name: "Joe",
       settings: {
         theme: "light",
       },
@@ -120,7 +120,7 @@ console.log(data.address); // null
  * Example 3
  * Freeze Object
  */
- const man = { name: "Bytefer" };
+ const man = { name: "Joe" };
 
  function freezeObject(obj) {
    return new Proxy(obj, {
@@ -142,11 +142,11 @@ console.log(data.address); // null
  const freezedMan = freezeObject(man);
  
  //After defining the freeze function, let’s test its functionality:
- console.log(freezedMan.name); // Bytefer
+ console.log(freezedMan.name); // Joe
  freezedMan.name = "Lolo"; 
  delete freezedMan.man; 
  freezedMan.age = 30;
- console.log(freezedMan); // { name: 'Bytefer' }
+ console.log(freezedMan); // { name: 'Joe' }
 
  /**
  * Example 4
@@ -172,14 +172,14 @@ function traceMethodCall(obj) {
 
 // With the traceMethodCall function, we can use it to trace the method call of the specified object:
 const man = {
-    name: "Bytefer",
+    name: "Joe",
     say(msg) {
       return `${this.name} says: ${msg}`;
     },
 };
 const tracedObj = traceMethodCall(man);
 tracedObj.say("Hello Proxy API"); 
-// Call say method -> "Bytefer says: Hello Proxy API"
+// Call say method -> "Joe says: Hello Proxy API"
 
 // In fact, in addition to being able to track method calls, we can also track access to properties in object.
 
@@ -206,10 +206,10 @@ function tracePropertyAccess(obj, propKeys) {
 }
 // With the tracePropertyAccess function, we can use it to trace the property access of the specified object:
 const man = {
-    name: "Bytefer",
+    name: "Joe",
 };
 const tracedMan = tracePropertyAccess(man, ["name"]);
-console.log(tracedMan.name); // GET name; Bytefer
+console.log(tracedMan.name); // GET name; Joe
 console.log(tracedMan.age); // undefined
 tracedMan.name = "Lolo"; // SET name=Lolo
 
@@ -230,7 +230,7 @@ tracedMan.name = "Lolo"; // SET name=Lolo
 
 // With the hideProperty function, we can use it to hide properties starting with _(underscore):
 const man = {
-    name: "Bytefer",
+    name: "Joe",
     _pwd: "ProxyAPI",
 };
 const safeMan = hideProperty(man);
@@ -266,7 +266,7 @@ console.log(Object.keys(safeMan)); // [ 'name' ]
 
 // With the sandbox function, let’s verify its capabilities:
 const man = {
-    name: "Bytefer",
+    name: "Joe",
     log() {
       console.log("Hello Proxy API");
     },
@@ -321,11 +321,11 @@ sandbox(code)(man);
 // With the Builder function, let’s look at two ways it can be used. The first way is to handle ordinary object:
 const defaultUserInfo = {
     id: 1,
-    userName: "Bytefer",
-    email: "bytefer@gmail.com",
+    userName: "Joe",
+    email: "Joe@gmail.com",
 };
-const bytefer = Builder(defaultUserInfo).id(2).build();
-console.log(bytefer);
+const Joe = Builder(defaultUserInfo).id(2).build();
+console.log(Joe);
 
 // The second way is to handle the class:
 
