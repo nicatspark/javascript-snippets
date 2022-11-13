@@ -552,4 +552,14 @@ const getSelectedText = () => window.getSelection().toString()
     )
     .catch(err => console.log(err.status));
   
-  
+/**
+ * Create UUID
+ */
+  function uuid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+const userID=uuid(); //something like: "ec0c22fa-f909-48da-92cb-db17ecdb91c5"
