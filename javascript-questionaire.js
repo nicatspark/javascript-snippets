@@ -184,7 +184,7 @@ _________________________________________________________
 
 
 
-// How can we create an object?
+// How can we create an object? (there are at least 6 ways)
 
 
 
@@ -478,7 +478,7 @@ function add(a, b) {
 
 // Is there a difference between these two functions?
 
-function add() {
+function add(a, b) {
     return a+b
 }
 
@@ -744,3 +744,84 @@ let x;
     ).json();
     x = result.slice(0, 10);
   })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Have you used any design patterns and in that case which?
+const designPatterns = [
+    'Singleton',
+    'Factory Method',
+    'Abstract Factory',
+    'Builder',
+    'Prototype',
+    'Object Pool',
+    'Adapter',
+    'Decorator',
+    'Proxy',
+    'Composite',
+    'Bridge',
+    'Flyweight',
+    'Observer',
+    'Strategy',
+    'Command',
+    'State',
+    'Chain of Responsibility',
+    'Visitor'
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
